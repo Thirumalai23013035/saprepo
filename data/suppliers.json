@@ -1,0 +1,23 @@
+[
+  {
+    "supplierCode": "NORTH-01",
+    "name": "Northstar Industrial",
+    "taxId": "US-NORTH-001",
+    "currency": "USD",
+    "paymentTermsDays": 30
+  },
+  {
+    "supplierCode": "VERD-08",
+    "name": "Verdant Office Co.",
+    "taxId": "US-VERD-008",
+    "currency": "USD",
+    "paymentTermsDays": 45
+  },
+  {
+    "supplierCode": "APEX-03",
+    "name": "Apex Safety Systems",
+    "taxId": "US-APEX-003",
+    "currency": "USD",
+    "paymentTermsDays": 30
+  }
+]

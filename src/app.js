@@ -2,12 +2,25 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const env = require('./config/env');
 const procurementRoutes = require('./routes/procurementRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 
 const app = express();
-app.use(helmet());
-app.use(cors());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
+
+const allowedClientOrigin = env.clientUrl ? env.clientUrl.replace(/\/+$/, '') : '*';
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedClientOrigin === '*' || origin.replace(/\/+$/, '') === allowedClientOrigin) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('combined'));
 app.get('/health', (req, res) => res.json({ status: 'ok', service: 'procurement-match-api' }));

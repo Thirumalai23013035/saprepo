@@ -1,0 +1,41 @@
+[
+  {
+    "invoiceNumber": "INV-24091",
+    "supplierCode": "NORTH-01",
+    "poNumber": "PO-78114",
+    "invoiceDate": "2026-08-21",
+    "currency": "USD",
+    "subtotal": 18420.2,
+    "taxTotal": 1473.62,
+    "total": 19893.82,
+    "lines": [
+      { "poLineNumber": 1, "sku": "VALVE-440", "description": "Industrial control valve", "invoicedQuantity": 124, "unitPrice": 148.55, "taxRate": 8 }
+    ]
+  },
+  {
+    "invoiceNumber": "INV-24088",
+    "supplierCode": "VERD-08",
+    "poNumber": "PO-78092",
+    "invoiceDate": "2026-08-22",
+    "currency": "USD",
+    "subtotal": 2360,
+    "taxTotal": 188.8,
+    "total": 2548.8,
+    "lines": [
+      { "poLineNumber": 1, "sku": "CHAIR-204", "description": "Ergonomic office chair", "invoicedQuantity": 20, "unitPrice": 118, "taxRate": 8 }
+    ]
+  },
+  {
+    "invoiceNumber": "INV-24084",
+    "supplierCode": "APEX-03",
+    "poNumber": "PO-78041",
+    "invoiceDate": "2026-08-20",
+    "currency": "USD",
+    "subtotal": 890,
+    "taxTotal": 71.2,
+    "total": 961.2,
+    "lines": [
+      { "poLineNumber": 2, "sku": "GLOVE-882", "description": "Chemical resistant gloves", "invoicedQuantity": 100, "unitPrice": 8.9, "taxRate": 8 }
+    ]
+  }
+]

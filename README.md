@@ -8,6 +8,12 @@ copy .env.example .env
 npm run dev
 ```
 
+## Load default database data
+
+```bash
+npm run seed
+```
+
 ## Entities
 
 - `Supplier`

@@ -1,0 +1,32 @@
+[
+  {
+    "poNumber": "PO-78114",
+    "supplierCode": "NORTH-01",
+    "currency": "USD",
+    "issueDate": "2026-08-01",
+    "status": "OPEN",
+    "lines": [
+      { "lineNumber": 1, "sku": "VALVE-440", "description": "Industrial control valve", "orderedQuantity": 100, "unitPrice": 137, "taxRate": 8 }
+    ]
+  },
+  {
+    "poNumber": "PO-78092",
+    "supplierCode": "VERD-08",
+    "currency": "USD",
+    "issueDate": "2026-07-28",
+    "status": "OPEN",
+    "lines": [
+      { "lineNumber": 1, "sku": "CHAIR-204", "description": "Ergonomic office chair", "orderedQuantity": 20, "unitPrice": 118, "taxRate": 8 }
+    ]
+  },
+  {
+    "poNumber": "PO-78041",
+    "supplierCode": "APEX-03",
+    "currency": "USD",
+    "issueDate": "2026-07-24",
+    "status": "OPEN",
+    "lines": [
+      { "lineNumber": 2, "sku": "GLOVE-880", "description": "Chemical resistant gloves", "orderedQuantity": 100, "unitPrice": 8.9, "taxRate": 8 }
+    ]
+  }
+]

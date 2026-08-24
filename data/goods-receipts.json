@@ -1,0 +1,20 @@
+[
+  {
+    "receiptNumber": "GR-55120",
+    "poNumber": "PO-78114",
+    "receivedBy": "Warehouse Team",
+    "status": "POSTED",
+    "lines": [
+      { "poLineNumber": 1, "sku": "VALVE-440", "receivedQuantity": 100, "receivedDate": "2026-08-18" }
+    ]
+  },
+  {
+    "receiptNumber": "GR-55088",
+    "poNumber": "PO-78041",
+    "receivedBy": "Warehouse Team",
+    "status": "POSTED",
+    "lines": [
+      { "poLineNumber": 2, "sku": "GLOVE-880", "receivedQuantity": 100, "receivedDate": "2026-08-15" }
+    ]
+  }
+]

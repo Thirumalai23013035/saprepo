@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { AlertTriangle, ArrowUpRight, Bot, Check, ChevronRight, CircleDollarSign, ClipboardCheck, FileWarning, Filter, Inbox, LayoutDashboard, Menu, RefreshCw, Search, Settings2, ShieldCheck, Sparkles, X } from 'lucide-react';
 import './styles.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const rawApiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:4000/api').trim().replace(/\/+$/, '');
+const API_URL = rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl}/api`;
 
 const demoExceptions = [
   { id: '66f000000000000000000001', invoiceNumber: 'INV-24091', supplier: { name: 'Northstar Industrial', supplierCode: 'NORTH-01' }, total: 18420.5, currency: 'USD', decision: 'BLOCK', riskScore: 91, matchedAt: '2026-08-23T09:20:00Z', discrepancies: [{ type: 'QUANTITY_MISMATCH', message: 'Billed quantity exceeds received quantity by 24 units.', severity: 'CRITICAL' }, { type: 'PRICE_MISMATCH', message: 'Unit price is 8.4% above the PO price.', severity: 'HIGH' }], recommendations: ['Hold payment until receipt quantity covers the invoice.', 'Request a corrected invoice or approved price variance.'], invoice: { invoiceDate: '2026-08-21', lines: [{ poLineNumber: 1, sku: 'VALVE-440', invoicedQuantity: 124, unitPrice: 148.55 }] }, purchaseOrder: { poNumber: 'PO-78114', lines: [{ lineNumber: 1, sku: 'VALVE-440', orderedQuantity: 100, unitPrice: 137 }] } },
@@ -17,7 +18,12 @@ function money(value) { return new Intl.NumberFormat('en-US', { style: 'currency
 function formatDate(date) { return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(date)); }
 function label(value) { return value.toLowerCase().replaceAll('_', ' '); }
 
-async function fetchJson(path) { const response = await fetch(`${API_URL}${path}`); if (!response.ok) throw new Error('API unavailable'); return response.json(); }
+async function fetchJson(path) {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  const response = await fetch(`${API_URL}${cleanPath}`);
+  if (!response.ok) throw new Error(`API returned HTTP ${response.status}`);
+  return response.json();
+}
 
 function App() {
   const [dashboard, setDashboard] = useState(fallbackDashboard);
@@ -34,8 +40,11 @@ function App() {
     setLoading(true);
     try {
       const [nextDashboard, nextExceptions] = await Promise.all([fetchJson('/analytics/dashboard'), fetchJson('/analytics/exceptions')]);
-      setDashboard(nextDashboard); setExceptions(nextExceptions); setSelected(nextExceptions[0] || null); setNotice('Live data refreshed');
-    } catch { setNotice('Demo data loaded · connect the API to see live records'); }
+      setDashboard(nextDashboard); setExceptions(nextExceptions); setSelected(nextExceptions[0] || null); setNotice('Live data connected');
+    } catch (err) {
+      console.error('API load error:', err);
+      setNotice('Demo data loaded · connect the API to see live records');
+    }
     finally { setLoading(false); }
   }
   useEffect(() => { loadData(); }, []);
@@ -46,7 +55,7 @@ function App() {
 
   async function resolve() {
     if (!selected || !note.trim()) return;
-    try { await fetch(`${API_URL}/invoices/${selected.invoice?._id || selected.invoice}/resolve`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ note }) }); } catch {}
+    try { await fetch(`${API_URL}/invoices/${selected.invoice?._id || selected.invoice}/resolve`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ note }) }); } catch { }
     setExceptions(current => current.filter(item => item.id !== selected.id && item._id !== selected._id));
     setSelected(null); setShowResolution(false); setNote(''); setNotice('Exception marked resolved');
   }
